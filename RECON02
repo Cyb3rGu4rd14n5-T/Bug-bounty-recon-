@@ -1,0 +1,73 @@
+Decide your target domain. Replace all example.com below with your actual target.
+
+text
+$domain = "example.com"
+Subdomain Enumeration
+
+text
+subfinder.exe -d $domain -o subfinder.txt
+amass.exe enum -passive -d $domain -o amass.txt
+Subdomain Permutation/Expansion
+
+text
+alterx.exe -l subfinder.txt -o alterx1.txt
+alterx.exe -l amass.txt -o alterx2.txt
+Combine and Deduplicate All Subdomains
+
+text
+Get-Content subfinder.txt, amass.txt, alterx1.txt, alterx2.txt | Sort-Object -Unique | Set-Content all_subdomains.txt
+DNS Resolution
+
+text
+dnsx.exe -l all_subdomains.txt -o resolved.txt
+Probe for Live HTTP Hosts
+
+text
+httpx.exe -l resolved.txt -silent -o alive.txt
+URL and Endpoint Collection
+
+text
+gau.exe -o gau.txt < alive.txt
+waybackurls.exe -input alive.txt -output wayback.txt
+hakrawler.exe -url-file alive.txt -depth 2 -plain -out hakrawler.txt
+katana.exe -list alive.txt -o katana.txt
+To combine and deduplicate collected URLs:
+
+text
+Get-Content gau.txt, wayback.txt, hakrawler.txt, katana.txt | Sort-Object -Unique | Set-Content all_urls.txt
+Extract Relevant Parameters (GF Patterns)
+
+text
+gf.exe xss all_urls.txt > xss_candidates.txt
+gf.exe sqli all_urls.txt > sqli_candidates.txt
+gf.exe idor all_urls.txt > idor_candidates.txt
+Parameter XSS Testing
+
+text
+dalfox.exe file xss_candidates.txt -o dalfox_xss.txt
+Active Fuzzing (optional)
+
+text
+ffuf.exe -u https://$domain/FUZZ -w wordlist.txt -o ffuf_result.json
+Automated Vulnerability Scanning
+
+text
+nuclei.exe -ut
+nuclei.exe -l alive.txt -severity critical,high,medium -es info -o nuclei_critical.txt
+Reporting
+
+Review result files:
+
+all_subdomains.txt (unique subdomains)
+
+resolved.txt (actual DNS records)
+
+alive.txt (live HTTP hosts)
+
+all_urls.txt (unique gathered URLs)
+
+nuclei_critical.txt (vuln scan summary)
+
+dalfox_xss.txt (XSS findings)
+
+Fuzz JSON and GF parameter files
