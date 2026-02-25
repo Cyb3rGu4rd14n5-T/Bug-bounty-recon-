@@ -1,0 +1,77 @@
+1. Reconnaissance
+● Amass:Performs network mapping and subdomain enumeration.
+● Subfinder: A fast subdomain enumeration tool.
+● Assetfinder: Discovers related domains and subdomains.
+● Shodan/Censys: Search engines for internet-connected devices.
+● Aquatone: Visualizes attack surfaces and collects screenshots of target websites.
+● Hakrawler: Crawls web pages to find endpoints, URLs, and JavaScript files.
+
+
+2. Scanning
+● Nmap:Network discovery and vulnerability scanning.
+● Masscan: High-speed port scanning.
+● Nikto: Scans web servers for vulnerabilities.
+● OpenVAS:Acomprehensive vulnerability scanner.
+● Wappalyzer: Identifies technologies and frameworks used on websites.
+
+
+3. Content Discovery
+● Dirsearch: Directory brute-forcing tool for web paths.
+● FFUF(FuzzFaster U Fool): Flexible fuzzing tool for content discovery and fuzzing.
+● Gobuster: Brute-forces URLs and DNS subdomains.
+● ParamSpider: Finds URL parameters for potential exploitation.
+● Waybackurls: Extracts URLs from the Wayback Machine for reconnaissance.
+
+
+4. Subdomain Takeover
+● Subjack: Detects subdomain takeover vulnerabilities.
+● Nuclei: Customizable vulnerability scanner with templates for subdomain takeovers and
+more.
+● Can-I-Take-Over-X: Checks specific services for takeover possibilities.
+
+
+5. Vulnerability Analysis
+● BurpSuite: Comprehensive web vulnerability scanner and manual testing platform.
+● OWASPZAP:Open-source web vulnerability scanner.
+● sqlmap: Automated SQL injection and database takeover tool.
+● XSStrike: Detects and exploits XSS vulnerabilities.
+● Photon: Crawls websites to gather potential attack vectors.
+
+
+6. Automation Frameworks
+● Recon-ng: Reconnaissance automation framework with built-in modules.
+● LazyRecon: Automates basic recon tasks.
+● Osmedeus:Framework for offensive security recon and vulnerability scanning.
+● BBHT(BugBountyHunting Tools): Preconfigured scripts and tools for bug hunting.
+7. API Testing
+● Postman: Manages and tests APIs.
+● Hoppscotch: Lightweight API testing tool.
+● KiteRunner: Brute-forces API endpoints.
+
+
+8. Exploitation
+● Metasploit Framework: Comprehensive exploitation platform.
+● Commix:Exploits command injection vulnerabilities.
+● XXEInjection Payloads: Automates XXE vulnerability testing.
+● PayloadsAllTheThings: A repository for testing various vulnerabilities.
+
+
+9. Reporting & Workflow
+● ReconNote: Organizes recon findings.
+● SecurityTrails: Collects data on domains, DNS records, and more.
+● HackMD/Obsidian: For documentation and note-taking.
+● Vulners: Search engine for vulnerability details and exploit information.
+
+
+10. Other Handy Tools
+● CyberChef: Processes and decodes data.
+● DNSDumpster: Investigates DNS servers and their records.
+● Certspotter: Finds SSL certificates for a domain.
+● Httprobe: Probes URLs for HTTP/HTTPS endpoints.
+● Dnsx:Fast and customizable DNS resolution tool.
+
+
+11. All-in-One Tools
+● Naabu:Fast port scanning tool.
+● BugcrowdNinja Tools: A collection of bug bounty tools pre-configured for ease of use.
+● TheHarvester: Gathers emails, subdomains, and other metadata.
