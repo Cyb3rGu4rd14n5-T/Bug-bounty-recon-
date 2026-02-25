@@ -1,0 +1,104 @@
+IDOR Hunting Techniques
+
+ **practical, hands-on guide to identifying and exploiting Insecure Direct Object References (IDOR)** vulnerabilities in modern web applications. The speaker emphasizes skipping theoretical definitions and focuses on actionable techniques that have proven successful in real-world bug hunting scenarios.
+
+---
+
+### Core Concepts and Key Insights
+
+- **IDOR vulnerabilities are among the most dangerous bugs in web applications**, allowing attackers to access unauthorized user data by manipulating object identifiers.
+- The critical mindset shift is to move **beyond simple ID flipping** and instead understand the **logic and assumptions behind endpoints**.
+- Blindly guessing IDs is ineffective; instead, hunters must analyze **what the app expects**, how it handles requests, and where the **blind spots** are.
+- Different application types require targeting different endpoints:
+  - **E-commerce:** focus on orders, order states.
+  - **CRMs:** focus on user management.
+  - **Healthcare/Fintech:** sensitive dashboards and user data.
+
+---
+
+### Techniques to Identify IDOR Vulnerabilities
+
+**Trailing Slash / Path Normalization**
+Add `/` after ID to test routing differences.
+Example: `/users/10/` instead of `/users/10`
+
+
+
+**Double Slashes / Obfuscated Paths**
+Use `//` or `./` to confuse normalization.
+Example: `/users//9`, `/users/./9`
+
+
+
+**API Version Downgrading**
+Test older API versions with weaker auth.
+Example: `/api/v4/users/9` if `/api/v5/` is blocked
+
+
+**Endpoint Variants**
+Try alternate data paths.
+Example: `/users/9/details`, `/users/9/orders`
+
+
+
+**Multi-ID / Filter Abuse**
+Pass multiple IDs in one request.
+Example: `/users/10,9`
+
+
+
+**Type Confusion**
+Change ID format (string, leading zero).
+Example: `"9"`, `09`
+
+**Null Byte / Control Injection**
+Append `%00` or control chars.
+Example: `/users/9%00`
+
+
+**Header-Based Bypass**
+Manipulate routing headers.
+Example: `X-Original-URL: /users/9`
+
+
+
+**Encoded Space (%20) Bypass**
+Use subtle URL encoding tricks.
+Example: `/users/9%20`
+
+
+
+### Important Methodology and Recommendations
+
+- **Combine techniques** for better results (e.g., downgrade API version + encoded space + trailing slash).
+- **Carefully analyze server responses** (403, 404, 500, error messages) to understand how the backend processes inputs.
+- Focus on **JSON API endpoints** rather than rendered HTML pages for better data extraction.
+- Keep testing with **low noise payloads** and maintain detailed logs of requests and responses.
+- Understand the **expected input format** (integer, string, multiple IDs) to tailor payloads effectively.
+- The **percentage 20 (encoded space) bypass** is highlighted as a highly effective last-resort technique responsible for multiple high-impact findings.
+- Use **continuous, iterative testing** rather than random payload injections.
+
+---
+
+### Practical Checklist for IDOR Hunting
+
+- Identify **JSON API endpoints** exposing user or resource data.
+- Test **trailing slash** and **double slash** variations.
+- Attempt **API version downgrades** to legacy endpoints.
+- Explore **endpoint variants** returning partial data.
+- Try **multi-ID filters** and observe server behavior.
+- Experiment with **type confusion**: strings vs integers, leading zeros.
+- Use **null byte injection** and **control character encodings**.
+- Leverage **proxy headers** (`X-Original-URL`, `X-Forwarded-For`).
+- Employ **encoded space (`%20`) injections** to bypass normalization.
+- **Combine multiple techniques** for complex bypasses.
+- Log all requests and responses, noting status codes and error messages.
+- Focus on **sensitive endpoints** (orders, profiles, user management).
+
+---
+
+### Conclusion
+
+ **successful IDOR exploitation requires understanding application logic and response behavior rather than just flipping IDs**. The shared techniques are simple yet powerful tricks that, when combined and applied thoughtfully, can turn a seemingly secure "403 Forbidden" into a full data exposure exploit. The presenter encourages a **methodical, patient, and analytical approach** to IDOR hunting, highlighting the importance of continuous testing and adapting payloads based on observed server behavior.
+
+
