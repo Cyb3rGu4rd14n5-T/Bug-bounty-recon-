@@ -1,0 +1,19 @@
+1. **Review Scope**: Read bug bounty program scope (e.g., *.test.com) first to define recon boundaries—no tools needed.
+
+2. **Subdomain Enumeration**: Run subfinder, amass, assetfinder, crtsh.py, github-subdomains; merge outputs via bash/python script; dedupe with tomnomnom/anew → subs.txt.
+
+3. **Probe Alive Subdomains**: Pipe subs.txt to httpx or httprobe → alivesubs.txt (filters working HTTP/HTTPS servers).
+
+4. **Auto Scanners**: Execute Nuclei, Nikto, Nmap on alivesubs.txt (check policy first); simultaneously manually browse main site.
+
+5. **Tech Stack Detection**: Use Wappalyzer Chrome extension, builtwith.com, whatruns on live subdomains; note versions and search CVEs.
+
+6. **Known Bug Checks**: subzy on subs.txt for subdomain takeovers; socialhunter for broken social links; ParamSpider for XSS/open redirect params.
+
+7. **Screenshot Capture**: aquatone -s alivesubs.txt → generates visual report; manually review screenshots for unique subdomains.
+
+8. **URL Extraction**: waybackurls + gau on alivesubs.txt → urls.txt; httprobe urls.txt → aliveurls.txt (historical + live endpoints).
+
+9. **URL Filtering**: grep -i "config\|admin\|ini" aliveurls.txt; uro aliveurls.txt → declutters/prioritizes interesting endpoints.
+
+10. **Manual Analysis**: Inspect filtered URLs, tech findings, screenshots; prep for next phases (JS analysis, dorking per article).
