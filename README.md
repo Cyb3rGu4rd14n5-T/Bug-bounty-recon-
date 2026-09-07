@@ -64,6 +64,7 @@ AUTO-recon → TOOLS → Custom Scripts
 
 ### Tools Recommended
 - **nuclei** — Fast vulnerability scanning
+- **Darkmoon**: Open source autonomous penetration testing platform, 50 specialist agents over MCP, reproducible proof of exploitation, self hosted ([repository](https://github.com/ASCIT31/Dark-Moon)).
 - **httpx** — HTTP probing tool
 - **ffuf** — Fast fuzzing utility
 - **Burp Suite** — Web application proxy
